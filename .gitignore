@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw dataset inputs — regenerate with scripts/build-data.mjs, see README
+/data/raw/
+
+# keep the env template committed (the .env* rule above would swallow it)
+!.env.local.example
