@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      /* Adsterra banner host page.
+       *
+       * Adsterra's banner snippet works by assigning a global `atOptions` and
+       * then loading invoke.js, which reads that global. Several banners on one
+       * page therefore race over a single variable and the last writer wins
+       * every slot.
+       *
+       * Each slot is loaded as an iframe pointing at this file instead, so every
+       * placement gets a private `window`. This is served from the site's own
+       * origin rather than through `srcdoc` on purpose: a srcdoc document
+       * reports `about:srcdoc` as its location, and the ad server needs to see
+       * the real hostname to match the placement to an approved domain.
+       */
+      ;(function () {
+        var q = new URLSearchParams(location.search)
+        var key = q.get('key') || ''
+        var w = parseInt(q.get('w'), 10)
+        var h = parseInt(q.get('h'), 10)
+        var host = q.get('host') || ''
+
+        // Only ever load from an Adsterra delivery host, and only with a key
+        // shaped the way Adsterra issues them. The query string is attacker
+        // controllable, so neither value is interpolated into a script src
+        // before it has been checked.
+        var HOST_OK = /^[a-z0-9.-]+\.(highrevenueformat|highperformanceformat|effectiveratecpm|profitableratecpm|profitableratecpmnetwork)\.com$/
+        if (!/^[a-f0-9]{16,64}$/.test(key)) return
+        if (!HOST_OK.test(host)) return
+        if (!(w > 0 && h > 0)) return
+
+        window.atOptions = {
+          key: key,
+          format: 'iframe',
+          height: h,
+          width: w,
+          params: {},
+        }
+
+        var s = document.createElement('script')
+        s.type = 'text/javascript'
+        s.src = 'https://' + host + '/' + key + '/invoke.js'
+        document.body.appendChild(s)
+      })()
+    </script>
+  </body>
+</html>

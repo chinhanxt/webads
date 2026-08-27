@@ -15,20 +15,9 @@ type BannerCfg = { key: string; width: number; height: number }
  * them can coexist.
  */
 function Banner({ cfg, label }: { cfg: BannerCfg; label?: string }) {
-  const ref = useRef<HTMLIFrameElement | null>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el || !cfg.key) return
-    el.srcdoc = `<!doctype html><html><head><meta charset="utf-8">
-<style>html,body{margin:0;padding:0;overflow:hidden;background:transparent}</style>
-</head><body>
-<script type="text/javascript">
-atOptions = {"key":"${cfg.key}","format":"iframe","height":${cfg.height},"width":${cfg.width},"params":{}};
-<\/script>
-<script type="text/javascript" src="//www.highperformanceformat.com/${cfg.key}/invoke.js"><\/script>
-</body></html>`
-  }, [cfg.key, cfg.width, cfg.height])
+  const src =
+    `/ads/banner.html?key=${encodeURIComponent(cfg.key)}` +
+    `&w=${cfg.width}&h=${cfg.height}&host=${encodeURIComponent(ads.bannerHost)}`
 
   if (!ads.enabled || !cfg.key) {
     return (
@@ -49,7 +38,7 @@ atOptions = {"key":"${cfg.key}","format":"iframe","height":${cfg.height},"width"
         </div>
       ) : null}
       <iframe
-        ref={ref}
+        src={src}
         title="advertisement"
         width={cfg.width}
         height={cfg.height}

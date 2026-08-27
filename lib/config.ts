@@ -26,6 +26,15 @@ export const site = {
 export const ads = {
   enabled: process.env.NEXT_PUBLIC_ADS_ENABLED !== 'false',
 
+  /**
+   * Delivery host for banner invoke.js. Adsterra does not use one host for
+   * every account — read it off your own snippet rather than assuming, or the
+   * banners silently never load. Must also be allow-listed in
+   * public/ads/banner.html.
+   */
+  bannerHost:
+    process.env.NEXT_PUBLIC_ADSTERRA_BANNER_HOST || 'www.highrevenueformat.com',
+
   banner728: {
     key: process.env.NEXT_PUBLIC_ADSTERRA_728 || '',
     width: 728,
