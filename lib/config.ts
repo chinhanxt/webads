@@ -4,7 +4,7 @@
 
 export const site = {
   name: 'AutoQuote Hub',
-  domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'insurance.freepro.online',
+  domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'carinsurance.freepro.online',
   get url() {
     return `https://${this.domain}`
   },
