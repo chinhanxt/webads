@@ -232,7 +232,7 @@ export default function QuoteCalculator({
             href={quoteLink(zip || defaultZip, sub)}
             rel="sponsored nofollow noopener"
             target="_blank"
-            className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-6 py-3 text-base font-bold text-white shadow-lg shadow-sky-600/25 transition hover:bg-sky-500 active:scale-[.98]"
+            className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-6 py-3 text-base font-bold text-white no-underline shadow-lg shadow-sky-600/25 transition hover:bg-sky-500 active:scale-[.98]"
           >
             {affiliate.ctaLabel} →
           </a>

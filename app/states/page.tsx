@@ -61,7 +61,10 @@ export default function StatesIndex() {
             {rows.map(({ s, annual, cities }) => (
               <tr key={s.slug}>
                 <td className="border-t border-slate-100 px-4 py-3 dark:border-slate-800">
-                  <Link className="font-semibold" href={`/car-insurance/${s.slug}/`}>
+                  <Link
+                    className="font-semibold no-underline hover:underline"
+                    href={`/car-insurance/${s.slug}/`}
+                  >
                     {s.name}
                   </Link>
                 </td>

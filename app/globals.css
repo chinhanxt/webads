@@ -5,23 +5,36 @@
     "Helvetica Neue", Arial, sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
 
-.prose-body h2 {
-  @apply mt-10 mb-3 text-2xl font-bold tracking-tight text-slate-900 dark:text-white;
-}
-.prose-body h3 {
-  @apply mt-8 mb-2 text-lg font-bold text-slate-900 dark:text-white;
-}
-.prose-body p {
-  @apply my-4 leading-relaxed text-slate-700 dark:text-slate-300;
-}
-.prose-body ul {
-  @apply my-4 list-disc space-y-2 pl-6 text-slate-700 dark:text-slate-300;
-}
-.prose-body a {
-  @apply text-sky-600 underline underline-offset-2 hover:text-sky-500;
+  /* Article typography.
+   *
+   * These MUST stay inside `@layer base`. Unlayered CSS outranks every layered
+   * rule regardless of specificity, so declaring them at the top level makes
+   * `.prose-body a` beat the `text-white` utility on a call-to-action button
+   * inside an article — white-on-blue silently became blue-on-blue. Keeping
+   * them in `base` lets any utility class win, which is what the components
+   * expect.
+   *
+   * `:where()` additionally flattens specificity to zero, so a bare `<a>` in
+   * prose is styled while anything carrying its own classes stays untouched. */
+  .prose-body :where(h2) {
+    @apply mt-10 mb-3 text-2xl font-bold tracking-tight text-slate-900 dark:text-white;
+  }
+  .prose-body :where(h3) {
+    @apply mt-8 mb-2 text-lg font-bold text-slate-900 dark:text-white;
+  }
+  .prose-body :where(p) {
+    @apply my-4 leading-relaxed text-slate-700 dark:text-slate-300;
+  }
+  .prose-body :where(ul) {
+    @apply my-4 list-disc space-y-2 pl-6 text-slate-700 dark:text-slate-300;
+  }
+  .prose-body :where(a) {
+    @apply text-sky-600 underline underline-offset-2 hover:text-sky-500;
+  }
 }

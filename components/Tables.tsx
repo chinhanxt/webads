@@ -123,7 +123,7 @@ export function AgeTable({
                 <tr key={age}>
                   <td className={td + ' font-semibold text-slate-900 dark:text-white'}>
                     <Link
-                      className="hover:text-sky-600 hover:underline"
+                      className="no-underline hover:text-sky-600 hover:underline"
                       href={`/car-insurance-by-age/${stateSlug}/${age}`}
                     >
                       {age} years old

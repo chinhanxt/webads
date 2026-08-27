@@ -1,6 +1,26 @@
 import Link from 'next/link'
 import { site } from '@/lib/config'
 
+/** Site mark — same geometry as app/favicon.ico so the tab and the header match. */
+export function ShieldMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden="true" focusable="false">
+      <path
+        d="M16 1.4 29.9 6.9v9.1c0 6.2-4.2 11-13.9 15.5C6.3 27 2.1 22.2 2.1 16V6.9z"
+        fill="#0284c7"
+      />
+      <path
+        d="M9.4 16.5 14.1 21.1 23.0 11.0"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="3.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function Breadcrumbs({ items }: { items: { name: string; path: string }[] }) {
   return (
     <nav
@@ -13,7 +33,10 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
           {i === items.length - 1 ? (
             <span className="text-slate-700 dark:text-slate-300">{c.name}</span>
           ) : (
-            <Link className="hover:text-sky-600 hover:underline" href={c.path}>
+            <Link
+              className="text-slate-500 no-underline hover:text-sky-600 hover:underline dark:text-slate-500"
+              href={c.path}
+            >
               {c.name}
             </Link>
           )}
@@ -28,9 +51,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="flex items-center gap-2 font-extrabold tracking-tight">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-sky-600 text-sm text-white">
-            AQ
-          </span>
+          <ShieldMark className="h-7 w-7 shrink-0" />
           <span className="text-slate-900 dark:text-white">{site.name}</span>
         </Link>
         <nav className="flex items-center gap-4 text-sm font-medium text-slate-600 dark:text-slate-400">
