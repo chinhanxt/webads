@@ -15,8 +15,11 @@ type BannerCfg = { key: string; width: number; height: number }
  * them can coexist.
  */
 function Banner({ cfg, label }: { cfg: BannerCfg; label?: string }) {
+  // Directory index, not /ads/banner.html: Cloudflare Pages strips the .html
+  // extension and 308s to the clean path, which would cost every slot on the
+  // page an extra round-trip before the ad even starts loading.
   const src =
-    `/ads/banner.html?key=${encodeURIComponent(cfg.key)}` +
+    `/ads/banner/?key=${encodeURIComponent(cfg.key)}` +
     `&w=${cfg.width}&h=${cfg.height}&host=${encodeURIComponent(ads.bannerHost)}`
 
   if (!ads.enabled || !cfg.key) {
